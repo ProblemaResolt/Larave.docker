@@ -1,6 +1,5 @@
 export default function Main() {
 const today = new Date();
-console.log(today.getFullYear() )
   return (
     <footer className="text-center lg:text-left text-gray-600">
   <div className="mx-6 py-10 text-center md:text-left">
