@@ -1,12 +1,19 @@
 import React from 'react';
 import { Link, Head } from '@inertiajs/inertia-react';
+import Header from '@/Layouts/Header';
+import Main from '@/Layouts/Main';
+import Footer from '@/Layouts/Footer';
 
 export default function Welcome(props) {
     return (
         <>
-            <Head title="Nts japan ltd." />
-            <div className="relative flex items-top justify-center min-h-screen sm:items-center sm:pt-0">
-                <div className="fixed top-0 right-0 px-6 py-4 sm:block">
+            <Head title="Home" />
+            <article className="">
+            <Header />
+            <Main />
+            <Footer />
+                <h1 className="">
+                    Nts japan ltd.
                     {props.auth.user ? (
                         <Link href={route('dashboard')} className="text-sm text-gray-700 underline">
                             Dashboard
@@ -22,18 +29,16 @@ export default function Welcome(props) {
                             </Link>
                         </>
                     )}
-                </div>
+                </h1>
 
-                <div className="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                <div className="">
 
-                    <div className="flex justify-center mt-4 sm:items-center sm:justify-between">
-
-                        <div className="ml-4 text-center text-sm text-gray-500 sm:text-right sm:ml-0">
-                            Laravel v{props.laravelVersion} (PHP v{props.phpVersion})
+                    <div className="">
+                        <div className="">
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
         </>
     );
 }

@@ -33,6 +33,7 @@ export default function Register() {
     return (
         <Guest>
             <Head title="Register" />
+            <a href="/">Nts Japan Lts.</a>
 
             <ValidationErrors errors={errors} />
 

@@ -7,6 +7,7 @@ import Label from '@/Components/Label';
 import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
+
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -32,6 +33,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <Guest>
+            <a href="/">Nts Japan Lts.</a>
             <Head title="Log in" />
 
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
