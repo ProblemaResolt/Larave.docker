@@ -8,8 +8,10 @@ import { Head, Link, useForm } from '@inertiajs/inertia-react';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
+        firstname: '',
+        lastname: '',
         email: '',
+        phone: '',
         password: '',
         password_confirmation: '',
     });
@@ -39,12 +41,26 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <div>
-                    <Label forInput="name" value="Name" />
+                    <Label forInput="lastname" value="姓" />
 
                     <Input
                         type="text"
-                        name="name"
-                        value={data.name}
+                        name="lastname"
+                        value={data.lastname}
+                        className="mt-1 block w-full"
+                        autoComplete="name"
+                        isFocused={true}
+                        handleChange={onHandleChange}
+                        required
+                    />
+                </div>
+                <div>
+                    <Label forInput="firstname" value="名前" />
+
+                    <Input
+                        type="text"
+                        name="firstname"
+                        value={data.firstname}
                         className="mt-1 block w-full"
                         autoComplete="name"
                         isFocused={true}
@@ -62,6 +78,20 @@ export default function Register() {
                         value={data.email}
                         className="mt-1 block w-full"
                         autoComplete="username"
+                        handleChange={onHandleChange}
+                        required
+                    />
+                </div>
+
+                <div className="mt-4">
+                    <Label forInput="phone" value="電話番号（ハイフン無しの文字列を入力してください。）" />
+
+                    <Input
+                        type="tel"
+                        name="phone"
+                        value={data.phone}
+                        className="mt-1 block w-full"
+                        pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
                         handleChange={onHandleChange}
                         required
                     />
