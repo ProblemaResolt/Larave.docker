@@ -2,9 +2,9 @@ import React from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/inertia-react';
 import Button from '@/Components/Button';
+import Footer from '@/Layouts/Footer';
 
 export default function Dashboard(props) {
-console.log(props.auth)
     return (
         <Authenticated
             auth={props.auth}
@@ -26,12 +26,12 @@ console.log(props.auth)
                                     <li>電話番号:</li>
                                     <li>{props.auth.user.phone}</li>
                                 </ol>
-                            <Button>編集</Button>
-                            <Button>更新</Button>
+                            <Button className='mt-5'>編集</Button>
                         </div>
                     </div>
                 </div>
             </div>
+            <Footer />
 
         </Authenticated>
     );
