@@ -22,10 +22,10 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
                                     ユーザー情報
                                 </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('Welcome')}>
+                                <NavLink href={route('inHouseDocuments')} active={route().current('InHouseDocuments')}>
                                      お知らせ
                                 </NavLink>
-                                <NavLink href={route('dashboard')} active={route().current('Welcome')}>
+                                <NavLink href={route('rulebook')} active={route().current('Rulebook')}>
                                      就業規則
                                 </NavLink>
                             </div>

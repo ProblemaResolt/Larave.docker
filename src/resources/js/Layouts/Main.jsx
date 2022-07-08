@@ -1,18 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
-import { MenuIcon, XIcon } from '@heroicons/react/outline'
-
 import "animate.css/animate.min.css";
 
 import { AnimationOnScroll } from 'react-animation-on-scroll';
-
-const navigation = [
-  { name: 'Product', href: '#' },
-  { name: 'Features', href: '#' },
-  { name: 'Marketplace', href: '#' },
-  { name: 'Company', href: '#' },
-]
 
 export default function Main() {
   return (
@@ -23,8 +12,8 @@ export default function Main() {
           <div className="mx-auto pt-6 sm:px-6 lg:px-8">
             <div className="sm:text-center lg:text-left">
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                <span className="block xl:inline">NtsJapanとして</span>{' '}<br />
-                <span className="block text-indigo-600 xl:inline">出来る事</span>
+                <span className="xl:inline">NtsJapanとして</span>{' '}<br />
+                <span className="text-indigo-600 xl:inline">出来る事</span>
               </h1>
               <p className="text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
               企業としての其々目標を掲げております。<br />

@@ -28,4 +28,14 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/rulebook', function () {
+    return Inertia::render('Rulebook');
+})->middleware(['auth', 'verified'])->name('rulebook');
+
+Route::get('/inHouseDocuments', function () {
+    return Inertia::render('InHouseDocuments');
+})->middleware(['auth', 'verified'])->name('inHouseDocuments');
+
+
+
 require __DIR__.'/auth.php';
