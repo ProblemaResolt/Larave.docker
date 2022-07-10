@@ -12,6 +12,8 @@ export default function Index(props) {
             preserveScroll: true,
         });
     };
+    const reversedArr = [...props.blogs].reverse()
+
     return (
         <Authenticated
             auth={props.auth}
@@ -44,7 +46,7 @@ export default function Index(props) {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    {props.blogs.map((blog) => {
+                                    {reversedArr.map((blog) => {
                                         return (
                                                 <tr key={blog.id}>
                                                     <td className="border px-4 py-2">
