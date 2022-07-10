@@ -28,6 +28,12 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('rulebook')} active={route().current('Rulebook')}>
                                      就業規則
                                 </NavLink>
+                                <NavLink
+                                    href={route("blog.index")}
+                                    active={route().current("blog.index")}
+                                >
+                                    Blog
+                                </NavLink>
                             </div>
                         </div>
 

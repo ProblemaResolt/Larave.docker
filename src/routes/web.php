@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\BlogController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,6 +36,15 @@ Route::get('/inHouseDocuments', function () {
     return Inertia::render('InHouseDocuments');
 })->middleware(['auth', 'verified'])->name('inHouseDocuments');
 
-
+Route::resource('/blogs', BlogController::class)
+    ->names([
+            'index'=>'blog.index',
+            'create' => 'blog.create',
+            'store' => 'blog.store',
+            'destroy' => 'blog.destroy',
+            'edit' => 'blog.edit',
+            'update' => 'blog.update',
+            ])
+    ->middleware(['auth']);
 
 require __DIR__.'/auth.php';
