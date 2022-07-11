@@ -41,6 +41,7 @@ export default function Index(props) {
                                         <tr>
                                             <th>ID</th>
                                             <th>作成日</th>
+                                            <th>修正日</th>
                                             <th>タイトル</th>
                                             <th>コンテンツ</th>
                                         </tr>
@@ -54,6 +55,9 @@ export default function Index(props) {
                                                     </td>
                                                     <td className="border px-4 py-2">
                                                         {blog.created_at}
+                                                    </td>
+                                                    <td className="border px-4 py-2">
+                                                        {blog.updated_at}
                                                     </td>
                                                     <td className="border px-4 py-2">
                                                         {blog.title}
