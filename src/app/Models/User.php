@@ -12,6 +12,23 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function selectUserFindById($id)
+    {
+        // 「SELECT id, name, email WHERE id = ?」を発行する
+        $query = $this->select([
+            'id',
+            'lastname',
+            'firstname',
+            'email',
+            'password',
+            'phone'
+        ])->where([
+            'id' => $id
+        ]);
+        // first()は1件のみ取得する関数
+        return $query->first();
+    }
+
     /**
      * The attributes that are mass assignable.
      *

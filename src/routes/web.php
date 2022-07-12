@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\BlogController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -23,6 +25,10 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });
+
+Route::get('/users/edit', function () {
+    return Inertia::render('Users/Edit');
+})->middleware(['auth', 'verified'])->name('users/edit');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
