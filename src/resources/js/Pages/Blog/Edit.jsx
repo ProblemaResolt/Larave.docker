@@ -5,6 +5,7 @@ import Input from "@/Components/Input";
 import Label from "@/Components/Label";
 import Button from "@/Components/Button";
 import ValidationErrors from "@/Components/ValidationErrors";
+import EditorApp from "@/Components/EditorApp";
 
 export default function Edit(props) {
     const { data, setData, patch, processing, errors } = useForm({
@@ -54,7 +55,7 @@ export default function Edit(props) {
                                 <div>
                                     <Label forInput="content" value="Content" />
 
-                                    <Input
+                                    <EditorApp
                                         type="text"
                                         name="content"
                                         value={data.content}

@@ -5,6 +5,7 @@ import Input from "@/Components/Input";
 import Label from "@/Components/Label";
 import Button from "@/Components/Button";
 import ValidationErrors from "@/Components/ValidationErrors";
+import EditorApp from "@/Components/EditorApp";
 
 export default function Create(props) {
     const { data, setData, post, processing, errors } = useForm({
@@ -53,14 +54,12 @@ export default function Create(props) {
                                 </div>
                                 <div>
                                     <Label forInput="content" value="Content" />
-
-                                    <Input
+                                    <EditorApp
                                         type="text"
-                                        name="content"
                                         value={data.content}
                                         className="mt-1 block w-full"
-                                        handleChange={onHandleChange}
-                                    />
+                                        isFocused={true}
+                                        handleChange={onHandleChange}/>
                                 </div>
                                 <div className="flex items-center justify-end mt-4">
                                     <Button

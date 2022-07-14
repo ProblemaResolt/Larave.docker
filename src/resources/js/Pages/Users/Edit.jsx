@@ -39,22 +39,22 @@ export default function Edit(props) {
         <ValidationErrors errors={errors} />
                             <form onSubmit={submit}>
                                 <div>
-                                    <Label forInput="content" value="Content" />
+                                    <Label forInput="lastname" value="Content" />
 
                                     <Input
                                         type="text"
-                                        name="content"
+                                        name="lastname"
                                         value={data.lastname}
                                         className="mt-1 block w-full"
                                         handleChange={onHandleChange}
                                     />
                                 </div>
                                 <div>
-                                    <Label forInput="content" value="Content" />
+                                    <Label forInput="firstname" value="Content" />
 
                                     <Input
                                         type="text"
-                                        name="content"
+                                        name="firstname"
                                         value={data.firstname}
                                         className="mt-1 block w-full"
                                         handleChange={onHandleChange}
@@ -65,18 +65,18 @@ export default function Edit(props) {
 
                                     <Input
                                         type="text"
-                                        name="content"
+                                        name="email"
                                         value={data.email}
                                         className="mt-1 block w-full"
                                         handleChange={onHandleChange}
                                     />
                                 </div>
                                 <div>
-                                    <Label forInput="content" value="Content" />
+                                    <Label forInput="phone" value="Content" />
 
                                     <Input
                                         type="text"
-                                        name="content"
+                                        name="phone"
                                         value={data.phone}
                                         className="mt-1 block w-full"
                                         handleChange={onHandleChange}
