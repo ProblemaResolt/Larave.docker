@@ -1,8 +1,6 @@
 import React from 'react';
 import Authenticated from '@/Layouts/Authenticated';
 import { Head } from '@inertiajs/inertia-react';
-import Button from '@/Components/Button';
-import Footer from '@/Layouts/Footer';
 
 export default function Dashboard(props) {
     return (
@@ -33,12 +31,10 @@ export default function Dashboard(props) {
                                 </tr>
                             </tbody>
                             </table>
-                            <Button className='mt-5'>編集</Button>
                         </div>
                     </div>
                 </div>
             </div>
-            <Footer />
 
         </Authenticated>
     );

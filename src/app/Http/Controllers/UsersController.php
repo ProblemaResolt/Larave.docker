@@ -2,41 +2,102 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests\StoreBlogRequest;
-use App\Http\Requests\UpdateBlogRequest;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Inertia\Inertia;
 
 class UsersController extends Controller
 {
-    protected $user;
-
     /**
-     * コンストラクタ
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function __construct(User $user)
+    public function index()
     {
-        $this->user = $user;
+        return Inertia::render('User/Index',['users' => User::all()]);
     }
 
     /**
-     * 画面表示件データ一件取得用
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function getEdit($id)
+    public function create()
     {
-        $user = $this->user->selectUserFindById($id);
-        // 'users.edit'は後程作成するviewを指定しています。
-        return view('users.edit', compact('user'));
+        return Inertia::render('User/Create');
     }
 
-    public function update(UpdateBlogRequest $request, User $user)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\StoreUserRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreUserRequest $request)
     {
         $request->validate([
-            'title' => ['required'],
-            'content' => ['required']
+            'lastname' => ['required'],
+            'firstname' => ['required'],
+            'email' => ['required'],
+            'phone' => ['required']
+        ]);
+        User::create($request->all());
+        return redirect()->route('user.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        return Inertia::render('User/Edit',['user' => $user]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UpdateUserRequest  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateUserRequest $request, User $user)
+    {
+        $request->validate([
+            'lastname' => ['required'],
+            'firstname' => ['required'],
+            'email' => ['required'],
+            'phone' => ['required']
         ]);
         $user->update($request->all());
-        return redirect()->route('blog.index');
+        return redirect()->route('user.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('user.index');
     }
 }

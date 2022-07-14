@@ -26,10 +26,6 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/users/edit', function () {
-    return Inertia::render('Users/Edit');
-})->middleware(['auth', 'verified'])->name('users/edit');
-
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -52,5 +48,18 @@ Route::resource('/blogs', BlogController::class)
             'update' => 'blog.update',
             ])
     ->middleware(['auth']);
+
+    Route::resource('/users', UsersController::class)
+    ->names([
+            'index'=>'user.index',
+            'create' => 'user.create',
+            'store' => 'user.store',
+            'destroy' => 'user.destroy',
+            'edit' => 'user.edit',
+            'update' => 'user.update',
+            ])
+    ->middleware(['auth']);
+
+
 
 require __DIR__.'/auth.php';

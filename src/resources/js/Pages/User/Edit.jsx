@@ -35,7 +35,7 @@ export default function Edit(props) {
             </h2>
         }
     >
-        <Head title="Edit" />
+        <Head title="編集" />
         <ValidationErrors errors={errors} />
                             <form onSubmit={submit}>
                                 <div>
