@@ -24,8 +24,8 @@ export default function Welcome({
       <Head title="Welcome" />
 
       {canLogin ? (
-        <h1 className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+        <h1 className="max-w-full">
+            <div className='mx-auto px-4 sm:px-6 lg:px-8'>
                 <div className='flex justify-between h-16'>
                     <div className='flex'>
                         <div className='flex-shrink-0 flex items-center'>Nts Japan Ltd</div>
@@ -64,6 +64,8 @@ export default function Welcome({
       ) : null}
 
       <div className="">
+        <Main />
+        <Main />
         <Main />
       </div>
         <Footer />

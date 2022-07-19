@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import React, { PropsWithChildren, useState } from 'react';
 import useRoute from '@/Hooks/useRoute';
 import useTypedPage from '@/Hooks/useTypedPage';
-import JetApplicationMark from '@/Jetstream/ApplicationMark';
 import JetBanner from '@/Jetstream/Banner';
 import JetDropdown from '@/Jetstream/Dropdown';
 import JetDropdownLink from '@/Jetstream/DropdownLink';
@@ -57,12 +56,6 @@ export default function AppLayout({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex">
-                {/* <!-- Logo --> */}
-                <div className="flex-shrink-0 flex items-center">
-                  <InertiaLink href={route('dashboard')}>
-                    <JetApplicationMark className="block h-9 w-auto" />
-                  </InertiaLink>
-                </div>
 
                 {/* <!-- Navigation Links --> */}
                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
