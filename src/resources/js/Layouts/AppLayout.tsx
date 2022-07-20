@@ -59,6 +59,7 @@ export default function AppLayout({
 
                 {/* <!-- Navigation Links --> */}
                 <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <div className='flex-shrink-0 flex items-center'>Nts Japan Ltd</div>
                   <JetNavLink
                     href={route('dashboard')}
                     active={route().current('dashboard')}
@@ -207,7 +208,7 @@ export default function AppLayout({
                     </div>
 
                     <JetDropdownLink href={route('profile.show')}>
-                      Profile
+                      Profile Edit
                     </JetDropdownLink>
 
                     {page.props.jetstream.hasApiFeatures ? (
@@ -310,7 +311,7 @@ export default function AppLayout({
                   href={route('profile.show')}
                   active={route().current('profile.show')}
                 >
-                  Profile
+                  Profile Edit
                 </JetResponsiveNavLink>
 
                 {page.props.jetstream.hasApiFeatures ? (

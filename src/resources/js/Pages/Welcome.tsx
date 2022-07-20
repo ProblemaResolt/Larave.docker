@@ -30,7 +30,7 @@ export default function Welcome({
                     <div className='flex'>
                         <div className='flex-shrink-0 flex items-center'>Nts Japan Ltd</div>
                     </div>
-                <div className='hidden sm:flex sm:items-center sm:ml-6'>
+                <div className='flex-shrink-0 flex items-center sm:flex sm:items-center sm:ml-6'>
           {page.props.user ? (
             <InertiaLink
               href={route('dashboard')}

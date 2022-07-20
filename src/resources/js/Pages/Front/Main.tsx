@@ -1,11 +1,11 @@
 /* This example requires Tailwind CSS v2.0+ */
 import "animate.css/animate.min.css";
-
+import React, { Component } from 'react'
 import { AnimationOnScroll } from 'react-animation-on-scroll';
 
 export default function Main() {
   return (
-    <main>
+    <article>
     <AnimationOnScroll className="relative bg-white overflow-hidden" animateIn="animate__fadeIn">
       <div className="mx-auto">
         <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
@@ -35,6 +35,6 @@ export default function Main() {
       </div>
     </AnimationOnScroll>
 
-    </main>
+    </article>
   )
 }
