@@ -1,5 +1,5 @@
 import React from 'react';
-import Welcome from '@/Jetstream/Welcome';
+import DashboardIndex from '@/Pages/DashboardIndex';
 import AppLayout from '@/Layouts/AppLayout';
 
 export default function Dashboard() {
@@ -12,7 +12,7 @@ export default function Dashboard() {
         </h2>
       )}
     >
-            <Welcome />
+            <DashboardIndex />
     </AppLayout>
   );
 }

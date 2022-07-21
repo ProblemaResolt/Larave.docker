@@ -9,7 +9,7 @@ import { Formik, useFormik } from "formik";
 
 import Main from '@/Pages/Front/Main';
 import Footer from '@/Pages/Front/Footer';
-import { TextEditor } from '@/Pages/Front/Test';
+import { TextEditor } from '@/Component/TextEditor';
 
 interface Props {
   canLogin: boolean;
