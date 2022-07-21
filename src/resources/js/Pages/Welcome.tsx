@@ -4,22 +4,13 @@ import useRoute from '@/Hooks/useRoute';
 import useTypedPage from '@/Hooks/useTypedPage';
 import { Head } from '@inertiajs/inertia-react';
 
-import * as Yup from "yup";
-import { Formik, useFormik } from "formik";
-
 import Main from '@/Pages/Front/Main';
 import Footer from '@/Pages/Front/Footer';
-import { TextEditor } from '@/Component/TextEditor';
-
 interface Props {
   canLogin: boolean;
   canRegister: boolean;
 }
 
-const schema = Yup.object().shape({
-    name: Yup.string().min(3).max(20).required("Required"),
-    message: Yup.string().min(3).max(2000).required("Required")
-  });
 
 export default function Welcome({
   canLogin,
@@ -27,14 +18,6 @@ export default function Welcome({
 }: Props) {
   const route = useRoute();
   const page = useTypedPage();
-
-  const formik = useFormik({
-    initialValues: { name: "", message: "<p>こちらに文章を入れてください。</p>" },
-    onSubmit: (values) => {
-      console.log("Logging in ", values);
-    },
-    validationSchema: schema
-  });
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -82,11 +65,7 @@ export default function Welcome({
 
       <div className="">
         <Main />
-        <TextEditor
-          setFieldValue={(val) => formik.setFieldValue("message", val)}
-          value={formik.values.message}
-        />
-        <p>formik values ==> {JSON.stringify(formik.values)}</p>
+
       </div>
         <Footer />
     </div>
