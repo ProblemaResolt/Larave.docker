@@ -53,7 +53,7 @@ export default function AppLayout({
       <div className="min-h-screen bg-gray-100">
         <nav className="bg-white border-b border-gray-100">
           {/* <!-- Primary Navigation Menu --> */}
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between h-16">
               <div className="flex">
 
@@ -65,6 +65,12 @@ export default function AppLayout({
                     active={route().current('dashboard')}
                   >
                     Dashboard
+                  </JetNavLink>
+                  <JetNavLink
+                    href={route('attendance')}
+                    active={route().current('attendance')}
+                  >
+                    Attendance
                   </JetNavLink>
                 </div>
               </div>
@@ -396,7 +402,7 @@ export default function AppLayout({
         {/* <!-- Page Heading --> */}
         {renderHeader ? (
           <header className="bg-white shadow">
-            <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto py-6 px-4 sm:px-6 lg:px-8">
               {renderHeader()}
             </div>
           </header>
