@@ -18,23 +18,23 @@ type Props = {
 
 const data = Data;
 
-const objlist = data.attendance.map((data,i) => {
+const objlist = data.attendance.map((i) => {
     return (
         <tr>
-            <td key={i} className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                <div>{data.status}</div>
+            <td key={i.id} className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                <div>{i.status}</div>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-            <span className="font-semibold leading-tight text-size-xs text-slate-400">{data.panch_in}</span>
+             <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in}</span>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-            <span className="font-semibold leading-tight text-size-xs text-slate-400">{data.panch_out}</span>
+             <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out}</span>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-            {data.transportation_costs}
+             {i.transportation_costs}
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-            {data.note}
+              {i.note}
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
             <Button className="font-semibold leading-tight text-size-xs text-slate-400"> Edit </Button>
