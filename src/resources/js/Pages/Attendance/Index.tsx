@@ -10,15 +10,15 @@ type Attendance = {
     "transportation_costs": object,
     "panch_in": object,
     "panch_out": object,
-    "working_time":object,
-    "break_time":object,
+    "working_time": object,
+    "break_time": object,
     "created_at": object,
     "updated_at": object
-  }
+}
 
 const data = Data;
 
-const Header = () =>  {
+const Header = () => {
     return (
         <tr>
             <th className="px-6 py-3 font-bold text-center uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-size-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
@@ -45,7 +45,6 @@ const Header = () =>  {
         </tr>
     )
 };
-console.log(Header)
 
 const objlist = data.attendance.map((i) => {
     return (
@@ -54,60 +53,60 @@ const objlist = data.attendance.map((i) => {
                 <div>{i.status}</div>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-             <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in}</span>
+                <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in}</span>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-             <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out}</span>
+                <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out}</span>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-             {i.transportation_costs}
+                {i.transportation_costs}
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {i.working_time}
+                {i.working_time}
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {i.note}
+                {i.note}
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-            <Button className="font-semibold leading-tight text-size-xs text-slate-400"> Edit </Button>
+                <Button className="font-semibold leading-tight text-size-xs text-slate-400"> Edit </Button>
             </td>
         </tr>
     );
-  });
+});
 
 export default function Attendance() {
     return (
-      <AppLayout
-        title="Attendance"
-        renderHeader={() => (
-          <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-            Attendance
-          </h2>
-        )}
-      >
-        <div className="w-full px-6 py-6 mx-auto">
-            <div className="flex flex-wrap -mx-3">
-            <div className="flex-none w-full max-w-full px-3">
-                <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-                <div className="flex-auto px-0 pt-0 pb-2">
-                    <div className="p-10 overflow-x-auto">
-            <div>
-                <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Export</Button>
-            </div>
-                        <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table-auto">
-                            <thead className="align-bottom">
-                            <Header />
-                            </thead>
-                            <tbody>
-                             {objlist}
-                            </tbody>
-                         </table>
+        <AppLayout
+            title="Attendance"
+            renderHeader={() => (
+                <h2 className="font-semibold text-xl text-gray-800 leading-tight">
+                    Attendance
+                </h2>
+            )}
+        >
+            <div className="w-full px-6 py-6 mx-auto">
+                <div className="flex flex-wrap -mx-3">
+                    <div className="flex-none w-full max-w-full px-3">
+                        <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
+                            <div className="flex-auto px-0 pt-0 pb-2">
+                                <div className="p-10 overflow-x-auto">
+                                    <div>
+                                        <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Export</Button>
+                                    </div>
+                                    <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table-auto">
+                                        <thead className="align-bottom">
+                                            <Header />
+                                        </thead>
+                                        <tbody>
+                                            {objlist}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                </div>
             </div>
-            </div>
-        </div>
-      </AppLayout>
+        </AppLayout>
     );
-  }
+}
