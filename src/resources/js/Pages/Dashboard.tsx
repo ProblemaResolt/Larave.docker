@@ -1,5 +1,5 @@
 import React from 'react';
-import DashboardIndex from '@/Pages/DashboardIndex';
+import Profile from '@/Pages/Profile';
 import AppLayout from '@/Layouts/AppLayout';
 
 export default function Dashboard() {
@@ -12,7 +12,7 @@ export default function Dashboard() {
         </h2>
       )}
     >
-            <DashboardIndex />
+        <Profile />
     </AppLayout>
   );
 }
