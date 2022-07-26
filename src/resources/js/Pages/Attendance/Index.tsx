@@ -1,4 +1,5 @@
 import React from 'react';
+import useTypedPage from '@/Hooks/useTypedPage';
 import AppLayout from '@/Layouts/AppLayout';
 import Button from '@/Jetstream/Button';
 import Data from '@/Pages/Attendance/Data/data.json';
@@ -90,8 +91,9 @@ export default function Attendance() {
                         <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div className="flex-auto px-0 pt-0 pb-2">
                                 <div className="p-10 overflow-x-auto">
-                                    <div>
-                                        <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Export</Button>
+                                    <div className='mx-auto'>
+                                        <Button type="button" className="mx-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Export</Button>
+                                        <Button type="button" className="mx-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Edit</Button>
                                     </div>
                                     <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table-auto">
                                         <thead className="align-bottom">

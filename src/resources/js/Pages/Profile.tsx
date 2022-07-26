@@ -16,20 +16,20 @@ export default function Profile(props: any) {
                         <p className="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                             Joined in {page.props.user.created_at}
                         </p>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 text-center align-middle">
-                        <div>
+                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 text-center align-middle py-5 xl:py-5">
+                        <div className='py-2'>
                             <Button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-5 rounded-full">出勤</Button>
                         </div>
-                        <div>
+                        <div className='py-2'>
                             <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">退勤</Button>
                         </div>
-                        <div>
-                            合計勤務時間　18:00
+                        <div className='py-2'>
+                            <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">休み</Button>
                         </div>
-                        <div className='align-middle'>
-                            規定休憩時間　1:00
+                        <div className='py-2'>
+                            <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">有給申請</Button>
                         </div>
+                    </div>
                     </div>
 
                 </div>

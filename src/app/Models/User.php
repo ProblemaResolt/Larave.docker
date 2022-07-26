@@ -58,8 +58,13 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
     protected function serializeDate(\DateTimeInterface $date)
     {
         return $date->format('Y/m/d H:i:s');
+    }
+
+    public function attendancesystems() {
+        return $this->hasMany(AttendanceSystem::class);
     }
 }

@@ -67,8 +67,8 @@ export default function AppLayout({
                                         Dashboard
                                     </JetNavLink>
                                     <JetNavLink
-                                        href={route('attendance')}
-                                        active={route().current('attendance')}
+                                        href={route('attendance.index')}
+                                        active={route().current('attendance.index')}
                                     >
                                         Attendance
                                     </JetNavLink>

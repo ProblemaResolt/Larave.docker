@@ -87,3 +87,17 @@ export interface TeamInvitation {
   created_at: DateTime;
   updated_at: DateTime;
 }
+
+export interface Attendance {
+    id: number;
+    user_id: number;
+    note: string;
+    transportation_costs: string;
+    panch_in: DateTime;
+    panch_out: DateTime;
+    working_time: DateTime;
+    break_time: DateTime;
+    created_at: DateTime;
+    updated_at: DateTime;
+  }
+
