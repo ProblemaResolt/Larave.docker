@@ -12,6 +12,7 @@ class AttendanceSystem extends Model
     protected $table = 'attendance';
 
     protected $fillable = [
+        'id',
         'user_id',
         'status',
         'note',

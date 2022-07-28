@@ -23,6 +23,19 @@ export interface User {
   updated_at: DateTime;
 }
 
+export interface Attendance {
+    id: number;
+    user_id: number;
+    note: string;
+    transportation_costs: string;
+    panch_in: DateTime;
+    panch_out: DateTime;
+    working_time: DateTime;
+    break_time: DateTime;
+    created_at: DateTime;
+    updated_at: DateTime;
+  }
+
 export type InertiaSharedProps<T = {}> = T & {
   jetstream: {
     canCreateTeams: boolean;
@@ -39,7 +52,13 @@ export type InertiaSharedProps<T = {}> = T & {
   user: User & {
     all_teams?: Team[];
     current_team?: Team;
+    map:any;
   };
+  attendance: Attendance & {
+    all_teams?: Team[];
+    current_team?: Team;
+    map:any;
+  } ;
   errorBags: any;
   errors: any;
 };
@@ -87,17 +106,4 @@ export interface TeamInvitation {
   created_at: DateTime;
   updated_at: DateTime;
 }
-
-export interface Attendance {
-    id: number;
-    user_id: number;
-    note: string;
-    transportation_costs: string;
-    panch_in: DateTime;
-    panch_out: DateTime;
-    working_time: DateTime;
-    break_time: DateTime;
-    created_at: DateTime;
-    updated_at: DateTime;
-  }
 

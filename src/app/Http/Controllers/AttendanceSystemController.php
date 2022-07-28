@@ -18,11 +18,7 @@ class AttendanceSystemController extends Controller
      */
     public function index()
     {
-        $attendanceSystem = AttendanceSystem::latest()->get();
-
-        return Inertia::render('Attendance/Index', ['AttendanceSystem' => $attendanceSystem]);
-
-
+        return Inertia::render('Attendance/Index',['attendance' => AttendanceSystem::all()]);
     }
 
     /**

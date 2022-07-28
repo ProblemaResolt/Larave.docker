@@ -1,21 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useTypedPage from '@/Hooks/useTypedPage';
 import AppLayout from '@/Layouts/AppLayout';
 import Button from '@/Jetstream/Button';
 import Data from '@/Pages/Attendance/Data/data.json';
-
-type Attendance = {
-    "id": number,
-    "user_id": number,
-    "note": object,
-    "transportation_costs": object,
-    "panch_in": object,
-    "panch_out": object,
-    "working_time": object,
-    "break_time": object,
-    "created_at": object,
-    "updated_at": object
-}
+import { Head } from '@inertiajs/inertia-react'
 
 const data = Data;
 
@@ -47,35 +35,44 @@ const Header = () => {
     )
 };
 
-const objlist = data.attendance.map((i) => {
+const AttendanceList = (props: any) => {
+    const page = useTypedPage();
     return (
-        <tr key={i.id}>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                <div>{i.status}</div>
-            </td>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in}</span>
-            </td>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out}</span>
-            </td>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                {i.transportation_costs}
-            </td>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                {i.working_time}
-            </td>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                {i.note}
-            </td>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                <Button className="font-semibold leading-tight text-size-xs text-slate-400"> Edit </Button>
-            </td>
-        </tr>
+        <tbody>
+            {page.props.attendance.map((i: any) => {
+                return (
+                    <tr key={i.id}>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            <div>{i.status}</div>
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in}</span>
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out}</span>
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            {i.transportation_costs}
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            {i.working_time}
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            {i.note}
+                        </td>
+                        <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+                            <Button className="font-semibold leading-tight text-size-xs text-slate-400"> Edit </Button>
+                        </td>
+                    </tr>
+                );
+            })}
+        </tbody>
     );
-});
+}
 
-export default function Attendance() {
+
+export default function Attendance(props: any) {
+
     return (
         <AppLayout
             title="Attendance"
@@ -85,6 +82,7 @@ export default function Attendance() {
                 </h2>
             )}
         >
+            <Head title="Attendance" />
             <div className="w-full px-6 py-6 mx-auto">
                 <div className="flex flex-wrap -mx-3">
                     <div className="flex-none w-full max-w-full px-3">
@@ -99,9 +97,7 @@ export default function Attendance() {
                                         <thead className="align-bottom">
                                             <Header />
                                         </thead>
-                                        <tbody>
-                                            {objlist}
-                                        </tbody>
+                                        <AttendanceList />
                                     </table>
                                 </div>
                             </div>
