@@ -20,7 +20,8 @@ class AttendanceSystem extends Model
         'panch_in',
         'panch_out',
         'working_time',
-        'break_time'
+        'break_time',
+        'last_activity'
     ];
 
     public function user() {

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\AttendanceSystem;
-
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
+use Carbon\Carbon;
 use Inertia\Inertia;
 
 class AttendanceSystemController extends Controller
@@ -18,7 +19,8 @@ class AttendanceSystemController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Attendance/Index',['attendance' => AttendanceSystem::all()]);
+        $attendance = AttendanceSystem::latest()->get();
+        return Inertia::render('Attendance/Index', ['attendance' => $attendance]);
     }
 
     /**
@@ -29,6 +31,63 @@ class AttendanceSystemController extends Controller
     public function create()
     {
         return Inertia::render('Attendance/Create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function punchIn()
+    {   $user = Auth::user();
+
+        $oldTimestamp = AttendanceSystem::where('user_id', $user->id)->latest()->first();
+        if ($oldTimestamp) {
+            $oldTimestampPunchIn = new Carbon($oldTimestamp->panch_in);
+            $oldTimestampDay = $oldTimestampPunchIn->startOfDay();
+        } else {
+            $timestamp = AttendanceSystem::create([
+                'status' =>'出勤',
+                'user_id' => request()->user()->id,
+                'panch_in' => Carbon::now()
+            ]);
+
+            return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+
+        }
+
+        $newTimestampDay = Carbon::today();
+
+        if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->punch_out))){
+            return redirect()->back()->with('error', 'すでに出勤打刻がされています');
+        }
+
+        $timestamp = AttendanceSystem::create([
+            'status' =>'出勤',
+            'user_id' => request()->user()->id,
+            'panch_in' => Carbon::now()
+        ]);
+
+        return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+
+
+    }
+
+    public function punchOut()
+    {
+        $user = Auth::user();
+        $timestamp = AttendanceSystem::where('user_id', $user->id)->latest()->first();
+
+        if( !empty($timestamp->punch_out)) {
+            return redirect()->back()->with('error', '既に退勤の打刻がされているか、出勤打刻されていません');
+        }
+        $timestamp->update([
+            'punch_out' => Carbon::now()
+        ]);
+
+        return redirect()->back()->with('my_status', '退勤打刻が完了しました');
     }
 
     /**
@@ -88,7 +147,9 @@ class AttendanceSystemController extends Controller
      */
     public function update(Request $request, AttendanceSystem $attendanceSystem)
     {
-        //
+        $attendanceSystem->update($request->validated());
+
+        return Redirect::route('attendance.index');
     }
 
     /**
@@ -99,6 +160,8 @@ class AttendanceSystemController extends Controller
      */
     public function destroy(AttendanceSystem $attendanceSystem)
     {
-        //
+        $attendanceSystem->delete();
+
+        return Redirect::route('attendance.index');
     }
 }

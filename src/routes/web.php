@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Post;
 use Inertia\Inertia;
 use App\Http\Controllers\AttendanceSystemController;
 
@@ -33,9 +34,7 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-  //  Route::resource('attendance', AttendanceSystemController::class);
-    Route::resource('/attendance', AttendanceSystemController::class)
-    ->names(['index'=>'attendance.index',
-            'create' => 'attendance.create'])
-    ->middleware(['auth']);
+    Route::resource('attendance', AttendanceSystemController::class);
+    Route::post('attendance/punchin', 'App\Http\Controllers\AttendanceSystemController@punchIn')->name('attendance/punchin');
+    Route::put('attendance/punchout', 'App\Http\Controllers\AttendanceSystemController@punchOut')->name('attendance/punchout');
 });
