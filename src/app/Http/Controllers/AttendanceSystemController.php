@@ -84,7 +84,7 @@ class AttendanceSystemController extends Controller
             return redirect()->back()->with('error', '既に退勤の打刻がされているか、出勤打刻されていません');
         }
         $timestamp->update([
-            'punch_out' => Carbon::now()
+            'panch_out' => Carbon::now()
         ]);
 
         return redirect()->back()->with('my_status', '退勤打刻が完了しました');

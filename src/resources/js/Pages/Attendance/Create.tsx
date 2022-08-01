@@ -22,7 +22,7 @@ const Create = () => {
     }
     function handleSubmit2(e:any) {
         e.preventDefault();
-        put(route("attendance/punchout"));
+        post(route("attendance/punchout"));
     }
 
     return (

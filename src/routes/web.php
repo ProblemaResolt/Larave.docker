@@ -36,5 +36,5 @@ Route::middleware([
     })->name('dashboard');
     Route::resource('attendance', AttendanceSystemController::class);
     Route::post('attendance/punchin', 'App\Http\Controllers\AttendanceSystemController@punchIn')->name('attendance/punchin');
-    Route::put('attendance/punchout', 'App\Http\Controllers\AttendanceSystemController@punchOut')->name('attendance/punchout');
+    Route::post('attendance/punchout', 'App\Http\Controllers\AttendanceSystemController@punchOut')->name('attendance/punchout');
 });
