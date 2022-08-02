@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 use Inertia\Inertia;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class AttendanceSystemController extends Controller
 {
@@ -48,26 +49,20 @@ class AttendanceSystemController extends Controller
             $oldTimestampPunchIn = new Carbon($oldTimestamp->panch_in);
             $oldTimestampDay = $oldTimestampPunchIn->startOfDay();
         }
-            $timestamp = AttendanceSystem::create([
-                'status' => 1,
-                'user_id' => request()->user()->id,
-                'panch_in' => Carbon::now()
-            ]);
-
-            return redirect()->back()->with('my_status', '出勤打刻が完了しました');
-
-
 
         $newTimestampDay = Carbon::today();
 
         if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->panch_out))){
             return redirect()->back()->with('error', 'すでに出勤打刻がされています');
         }
+        $separator_time = 30;
+        $date = Carbon::now();
+        $nowDate = $date->addMinutes($separator_time - $date->minute % $separator_time);
 
         $timestamp = AttendanceSystem::create([
             'status' => 1,
             'user_id' => request()->user()->id,
-            'panch_in' => Carbon::now()
+            'panch_in' => $nowDate->format('Y/m/d H:i')
         ]);
         return redirect()->back()->with('my_status', '出勤打刻が完了しました');
     }
@@ -81,12 +76,23 @@ class AttendanceSystemController extends Controller
             return redirect()->back()->with('error', '既に退勤の打刻がされているか、出勤打刻されていません');
         }else{
 
+            $separator_time = 30;
+            $date = Carbon::now();
+            $nowDate = $date->subMinutes($date->minute % $separator_time);
+
             $timestamp->update([
-                'panch_out' => Carbon::now()
+                'panch_out' => $nowDate->format('Y/m/d H:i')
             ]);
 
             return redirect()->back()->with('my_status', '退勤打刻が完了しました');
         }
+
+        $workTimePunchIn = $timestamp->panch_in;
+        $workTimePunchOut = $timestamp->panch_out;
+        $timestamp->update([
+            'working_time' => ($workTimePunchIn - $workTimePunchOut)/60/60/24
+        ]);
+
     }
 
     public function sickLeave()
