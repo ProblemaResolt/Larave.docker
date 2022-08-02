@@ -1,6 +1,6 @@
 import React from 'react';
 import useTypedPage from '@/Hooks/useTypedPage';
-import Button from '@/Jetstream/Button';
+import Create from '@/Pages/Attendance/Create';
 
 export default function Profile(props: any) {
     const page = useTypedPage();
@@ -16,22 +16,8 @@ export default function Profile(props: any) {
                         <p className="pt-2 text-gray-600 text-xs lg:text-sm flex items-center justify-center lg:justify-start">
                             Joined in {page.props.user.created_at}
                         </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 text-center align-middle py-5 xl:py-5">
-                        <div className='py-2'>
-                            <Button type="button" className="bg-blue-500 hover:bg-blue-700 text-white font-bold p-5 rounded-full">出勤</Button>
-                        </div>
-                        <div className='py-2'>
-                            <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">退勤</Button>
-                        </div>
-                        <div className='py-2'>
-                            <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">休み</Button>
-                        </div>
-                        <div className='py-2'>
-                            <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">有給申請</Button>
-                        </div>
                     </div>
-                    </div>
-
+                    <Create />
                 </div>
                 <div className="w-full lg:w-2/5">
                     <img src={page.props.user.profile_photo_url} className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block" />

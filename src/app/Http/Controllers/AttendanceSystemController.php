@@ -60,17 +60,17 @@ class AttendanceSystemController extends Controller
 
         $newTimestampDay = Carbon::today();
 
-        if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->punch_out))){
+        if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->panch_out))){
             return redirect()->back()->with('error', 'すでに出勤打刻がされています');
-        }
+        }else{
 
         $timestamp = AttendanceSystem::create([
             'status' =>'出勤',
             'user_id' => request()->user()->id,
             'panch_in' => Carbon::now()
         ]);
-
         return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+}
 
 
     }
@@ -80,14 +80,16 @@ class AttendanceSystemController extends Controller
         $user = Auth::user();
         $timestamp = AttendanceSystem::where('user_id', $user->id)->latest()->first();
 
-        if( !empty($timestamp->punch_out)) {
+        if( !empty($timestamp->panch_out)) {
             return redirect()->back()->with('error', '既に退勤の打刻がされているか、出勤打刻されていません');
-        }
-        $timestamp->update([
-            'panch_out' => Carbon::now()
-        ]);
+        }else{
 
-        return redirect()->back()->with('my_status', '退勤打刻が完了しました');
+            $timestamp->update([
+                'panch_out' => Carbon::now()
+            ]);
+
+            return redirect()->back()->with('my_status', '退勤打刻が完了しました');
+        }
     }
 
     /**

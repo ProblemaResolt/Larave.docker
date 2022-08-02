@@ -1,9 +1,8 @@
 import React, { useEffect,useState } from 'react';
+import { Head } from '@inertiajs/inertia-react';
 import useTypedPage from '@/Hooks/useTypedPage';
 import AppLayout from '@/Layouts/AppLayout';
 import Button from '@/Jetstream/Button';
-import { Head } from '@inertiajs/inertia-react';
-import Create from '@/Pages/Attendance/Create';
 
 const Header = () => {
     return (
@@ -34,13 +33,12 @@ const Header = () => {
 };
 
 const AttendanceList = (props: any) => {
-    const [status,panch_in] = useState();
     const page = useTypedPage();
     return (
         <tbody>
             {page.props.attendance.map((i: any) => {
                 return (
-                    <tr key={i.id}>
+                    <tr key={i.id.toString()}>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             <div>{i.status}</div>
                         </td>
@@ -70,8 +68,9 @@ const AttendanceList = (props: any) => {
 }
 
 
-export default function Attendance(props: any) {
 
+
+export default function Attendance(props: any) {
     return (
         <AppLayout
             title="Attendance"
@@ -82,7 +81,6 @@ export default function Attendance(props: any) {
             )}
         >
             <Head title="Attendance" />
-            <Create />
             <div className="w-full px-6 py-6 mx-auto">
                 <div className="flex flex-wrap -mx-3">
                     <div className="flex-none w-full max-w-full px-3">
@@ -90,7 +88,6 @@ export default function Attendance(props: any) {
                             <div className="flex-auto px-0 pt-0 pb-2">
                                 <div className="p-10 overflow-x-auto">
                                     <div className='mx-auto'>
-                                        <Button type="button" className="mx-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Export</Button>
                                         <Button type="button" className="mx-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Edit</Button>
                                     </div>
                                     <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table-auto">
