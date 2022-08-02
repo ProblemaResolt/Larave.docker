@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('attendance', function (Blueprint $table) {
             $table->increments('id');
             $table->foreignId('user_id');
-            $table->string('status')->nullable();
+            $table->integer('status')->nullable();
             $table->text('note')->nullable();
             $table->integer('transportation_costs')->nullable();
             $table->dateTime('panch_in')->nullable();
             $table->dateTime('panch_out')->nullable();
-            $table->dateTime('working_time')->nullable();
-            $table->dateTime('break_time')->nullable();
+            $table->time('working_time')->nullable();
+            $table->time('break_time')->nullable();
             $table->integer('last_activity')->index();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');

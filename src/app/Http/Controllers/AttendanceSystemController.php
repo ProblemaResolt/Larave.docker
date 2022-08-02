@@ -34,7 +34,7 @@ class AttendanceSystemController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * punchIn a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -47,32 +47,29 @@ class AttendanceSystemController extends Controller
         if ($oldTimestamp) {
             $oldTimestampPunchIn = new Carbon($oldTimestamp->panch_in);
             $oldTimestampDay = $oldTimestampPunchIn->startOfDay();
-        } else {
+        }
             $timestamp = AttendanceSystem::create([
-                'status' =>'出勤',
+                'status' => 1,
                 'user_id' => request()->user()->id,
                 'panch_in' => Carbon::now()
             ]);
 
             return redirect()->back()->with('my_status', '出勤打刻が完了しました');
 
-        }
+
 
         $newTimestampDay = Carbon::today();
 
         if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->panch_out))){
             return redirect()->back()->with('error', 'すでに出勤打刻がされています');
-        }else{
+        }
 
         $timestamp = AttendanceSystem::create([
-            'status' =>'出勤',
+            'status' => 1,
             'user_id' => request()->user()->id,
             'panch_in' => Carbon::now()
         ]);
         return redirect()->back()->with('my_status', '出勤打刻が完了しました');
-}
-
-
     }
 
     public function punchOut()
@@ -91,6 +88,22 @@ class AttendanceSystemController extends Controller
             return redirect()->back()->with('my_status', '退勤打刻が完了しました');
         }
     }
+
+    public function sickLeave()
+    {
+        $user = Auth::user();
+
+
+        $timestamp = AttendanceSystem::create([
+            'status' => 2,
+            'user_id' => request()->user()->id,
+            'panch_in' => '1000-01-01 00:00:00',
+            'panch_out' => '1000-01-01 00:00:00',
+            'note' => ''
+        ]);
+
+    }
+
 
     /**
      * Store a newly created resource in storage.

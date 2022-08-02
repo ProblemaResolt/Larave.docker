@@ -40,13 +40,13 @@ const AttendanceList = (props: any) => {
                 return (
                     <tr key={i.id.toString()}>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <div>{i.status}</div>
+                            <div>{i.status === 1 ? '出勤':'' || i.status === 2 ? 'お休み':''}</div>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in}</span>
+                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in === '1000-01-01 00:00:00' ? '' : i.panch_in}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out}</span>
+                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out === '1000-01-01 00:00:00' ? '' : i.panch_out}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             {i.transportation_costs}
@@ -87,9 +87,6 @@ export default function Attendance(props: any) {
                         <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
                             <div className="flex-auto px-0 pt-0 pb-2">
                                 <div className="p-10 overflow-x-auto">
-                                    <div className='mx-auto'>
-                                        <Button type="button" className="mx-8 bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5 border border-blue-500 hover:border-transparent rounded-full">Edit</Button>
-                                    </div>
                                     <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500 table-auto">
                                         <thead className="align-bottom">
                                             <Header />

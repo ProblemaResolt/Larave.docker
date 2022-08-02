@@ -16,6 +16,7 @@ const Create = () => {
         created_at: "",
         updated_at: ""
     });
+
     function attendanceHandleSubmit(e: any) {
         e.preventDefault();
         post(route("attendance/punchin"));
@@ -23,6 +24,10 @@ const Create = () => {
     function leavingHandleSubmit(e: any) {
         e.preventDefault();
         post(route("attendance/punchout"));
+    }
+    function sickLeaveHandleSubmit(e: any) {
+        e.preventDefault();
+        post(route("attendance/sickleave"));
     }
 
     return (
@@ -37,14 +42,16 @@ const Create = () => {
             </div>
             <div className='py-2'>
                 <form name="createForm" onSubmit={leavingHandleSubmit}>
-                    <Button name="panch_in" type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">退勤</Button>
+                    <Button name="panch_out" type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">退勤</Button>
                     <span className="text-red-600">
                         {errors.panch_out}
                     </span>
                 </form>
             </div>
             <div className='py-2'>
-                <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">休み</Button>
+                <form name="createForm" onSubmit={sickLeaveHandleSubmit}>
+                    <Button name="sickleave" type="submit" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">休み</Button>
+                </form>
             </div>
             <div className='py-2'>
                 <Button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white p-5  border border-blue-500 hover:border-transparent rounded-full">有給申請</Button>

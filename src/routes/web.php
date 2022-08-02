@@ -37,4 +37,5 @@ Route::middleware([
     Route::resource('attendance', AttendanceSystemController::class);
     Route::post('attendance/punchin', 'App\Http\Controllers\AttendanceSystemController@punchIn')->name('attendance/punchin');
     Route::post('attendance/punchout', 'App\Http\Controllers\AttendanceSystemController@punchOut')->name('attendance/punchout');
+    Route::post('attendance/sickleave', 'App\Http\Controllers\AttendanceSystemController@sickLeave')->name('attendance/sickleave');
 });
