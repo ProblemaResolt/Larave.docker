@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Head } from '@inertiajs/inertia-react';
 import useTypedPage from '@/Hooks/useTypedPage';
 import AppLayout from '@/Layouts/AppLayout';
@@ -40,13 +40,24 @@ const AttendanceList = (props: any) => {
                 return (
                     <tr key={i.id.toString()}>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <div>{i.status === 1 ? '出勤':'' || i.status === 2 ? 'お休み':''}</div>
+                            <div>
+                                {
+                                    i.status === 1 ?
+                                    <span className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">出勤</span> : ''
+                                    ||
+                                    i.status === 2 ?
+                                    <span className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">お休み</span> : ''
+                                }
+                            </div>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in === '1000-01-01 00:00:00' ? '' : i.panch_in}</span>
+                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in === '1000-01-01 00:00:00' ? '休み' : i.panch_in}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_out === '1000-01-01 00:00:00' ? '' : i.panch_out}</span>
+                            <span className="font-semibold leading-tight text-size-xs text-slate-400">
+                                {i.panch_out === '1000-01-01 00:00:00' ? '休み' : i.panch_out
+                                || i.panch_in > i.panch_out ? i.panch_out : '早退'}
+                            </span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             {i.transportation_costs}
