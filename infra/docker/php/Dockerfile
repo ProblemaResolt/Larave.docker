@@ -14,6 +14,8 @@ ENV TZ=UTC \
 
 COPY --from=composer:2.3 /usr/bin/composer /usr/bin/composer
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 RUN apt-get update \
   && apt-get -y install --no-install-recommends \
     locales \
