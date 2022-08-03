@@ -49,6 +49,16 @@ class AttendanceSystemController extends Controller
             $oldTimestampPunchIn = new Carbon($oldTimestamp->panch_in);
             $oldTimestampDay = $oldTimestampPunchIn->startOfDay();
         }
+        $separator_time = 30;
+        $date = Carbon::now();
+        $nowDate = $date->addMinutes($separator_time - $date->minute % $separator_time);
+
+        $timestamp = AttendanceSystem::create([
+            'status' => 1,
+            'user_id' => request()->user()->id,
+            'panch_in' => $nowDate->format('Y/m/d H:i')
+        ]);
+        return redirect()->back()->with('my_status', '出勤打刻が完了しました');
 
         $newTimestampDay = Carbon::today();
 
@@ -79,20 +89,24 @@ class AttendanceSystemController extends Controller
             $separator_time = 30;
             $date = Carbon::now();
             $nowDate = $date->subMinutes($date->minute % $separator_time);
+            $oldDate = $timestamp->panch_in;
+            $breakTime = $timestamp->break_time;
+            $oldDateTime = strtotime($oldDate);
+            $dateTime = strtotime($nowDate);
+            $difSeconds = $dateTime - $oldDateTime;
+            $hours = floor($difSeconds / 3600);
+            $minutes = floor(($difSeconds / 60) % 60);
+            $seconds = 00;
+            $hms = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
 
             $timestamp->update([
-                'panch_out' => $nowDate->format('Y/m/d H:i')
+                'panch_out' => $nowDate->format('Y/m/d H:i'),
+                'working_time' => $hms
             ]);
+
 
             return redirect()->back()->with('my_status', '退勤打刻が完了しました');
         }
-
-        $workTimePunchIn = $timestamp->panch_in;
-        $workTimePunchOut = $timestamp->panch_out;
-        $timestamp->update([
-            'working_time' => ($workTimePunchIn - $workTimePunchOut)/60/60/24
-        ]);
-
     }
 
     public function sickLeave()
@@ -108,6 +122,7 @@ class AttendanceSystemController extends Controller
             'note' => ''
         ]);
 
+        return Redirect::route('attendance.index');
     }
 
 
