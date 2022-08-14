@@ -3,6 +3,8 @@ import { Head } from '@inertiajs/inertia-react';
 import useTypedPage from '@/Hooks/useTypedPage';
 import AppLayout from '@/Layouts/AppLayout';
 import Button from '@/Jetstream/Button';
+import route from "ziggy-js";
+import Modal from "@/Pages/Components/Modal";
 
 const Header = () => {
     return (
@@ -26,7 +28,7 @@ const Header = () => {
                 備考
             </th>
             <th className="px-6 py-3 font-semibold text-center capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                Edit
+                申請
             </th>
         </tr>
     )
@@ -34,6 +36,17 @@ const Header = () => {
 
 const AttendanceList = (props: any) => {
     const page = useTypedPage();
+    const [attendance, setAttendance] = useState([]);
+    useEffect(() => {
+            console.log(page.props.attendance)
+        },
+        [])
+
+    function editHandleSubmit(e: any) {
+        e.preventDefault();
+        post(route("attendance/edit"));
+    }
+
     return (
         <tbody>
             {page.props.attendance.map((i: any) => {
@@ -51,12 +64,12 @@ const AttendanceList = (props: any) => {
                             </div>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.panch_in === '1000-01-01 00:00:00' ? '休み' : i.panch_in}</span>
+                            <span className="font-semibold leading-tight text-size-xs text-slate-400">{i.punch_in === '1000-01-01 00:00:00' ? '休み' : i.punch_in}</span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                             <span className="font-semibold leading-tight text-size-xs text-slate-400">
-                                {i.panch_out === '1000-01-01 00:00:00' ? '休み' : i.panch_out
-                                || i.panch_in > i.panch_out ? i.panch_out : '早退'}
+                                {i.punch_out === '1000-01-01 00:00:00' ? '休み' : i.punch_out
+                                || i.punch_in > i.punch_out ? i.punch_out : ''}
                             </span>
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -69,7 +82,7 @@ const AttendanceList = (props: any) => {
                             {i.note}
                         </td>
                         <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                            <Button className="font-semibold leading-tight text-size-xs text-slate-400"> Edit </Button>
+                            <Modal />
                         </td>
                     </tr>
                 );
@@ -77,9 +90,6 @@ const AttendanceList = (props: any) => {
         </tbody>
     );
 }
-
-
-
 
 export default function Attendance(props: any) {
     return (
@@ -113,3 +123,7 @@ export default function Attendance(props: any) {
         </AppLayout>
     );
 }
+function post(arg0: string) {
+    throw new Error('Function not implemented.');
+}
+

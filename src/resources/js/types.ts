@@ -28,8 +28,8 @@ export interface Attendance {
     user_id: number;
     note: string;
     transportation_costs: string;
-    panch_in: DateTime;
-    panch_out: DateTime;
+    punch_in: DateTime;
+    punch_out: DateTime;
     working_time: DateTime;
     break_time: DateTime;
     created_at: DateTime;

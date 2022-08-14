@@ -3,9 +3,16 @@ import React, { useState } from 'react'
 
 export default function Edit() {
   const [values, setValues] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
+      id: "",
+      user_id: "",
+      note: "",
+      transportation_costs: "",
+      punch_in: "",
+      punch_out: "",
+      working_time: "",
+      break_time: "",
+      created_at: "",
+      updated_at: ""
   })
 
   function handleChange(e:any) {
@@ -19,17 +26,19 @@ export default function Edit() {
 
   function handleSubmit(e:any) {
     e.preventDefault()
-    Inertia.post('/attendance/create', values)
+    Inertia.post('/attendance/edit', values)
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="first_name">First name:</label>
-      <input id="first_name" value={values.first_name} onChange={handleChange} />
-      <label htmlFor="last_name">Last name:</label>
-      <input id="last_name" value={values.last_name} onChange={handleChange} />
-      <label htmlFor="email">Email:</label>
-      <input id="email" value={values.email} onChange={handleChange} />
+      <label htmlFor="first_name">出勤:</label>
+      <input id="first_name" value={values.punch_in} onChange={handleChange} />
+      <label htmlFor="last_name">退勤</label>
+      <input id="last_name" value={values.punch_out} onChange={handleChange} />
+      <label htmlFor="email">交通費申請</label>
+      <input id="email" value={values.transportation_costs} onChange={handleChange} />
+      <label htmlFor="email">交通費申請</label>
+      <input id="email" value={values.note} onChange={handleChange} />
       <button type="submit">Submit</button>
     </form>
   )

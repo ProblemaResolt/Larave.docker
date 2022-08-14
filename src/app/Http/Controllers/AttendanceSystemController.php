@@ -46,9 +46,9 @@ class AttendanceSystemController extends Controller
 
         $oldTimestamp = AttendanceSystem::where('user_id', $user->id)->latest()->first();
         if ($oldTimestamp) {
-            $oldTimestampPunchIn = new Carbon($oldTimestamp->panch_in);
+            $oldTimestampPunchIn = new Carbon($oldTimestamp->punch_in);
             $oldTimestampDay = $oldTimestampPunchIn->startOfDay();
-        }
+        }else{
         $separator_time = 30;
         $date = Carbon::now();
         $nowDate = $date->addMinutes($separator_time - $date->minute % $separator_time);
@@ -56,15 +56,16 @@ class AttendanceSystemController extends Controller
         $timestamp = AttendanceSystem::create([
             'status' => 1,
             'user_id' => request()->user()->id,
-            'panch_in' => $nowDate->format('Y/m/d H:i')
+            'punch_in' => $nowDate->format('Y/m/d H:i')
         ]);
         return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+        }
 
         $newTimestampDay = Carbon::today();
 
-        if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->panch_out))){
+        if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->punch_out))){
             return redirect()->back()->with('error', 'すでに出勤打刻がされています');
-        }
+        }else{
         $separator_time = 30;
         $date = Carbon::now();
         $nowDate = $date->addMinutes($separator_time - $date->minute % $separator_time);
@@ -72,9 +73,10 @@ class AttendanceSystemController extends Controller
         $timestamp = AttendanceSystem::create([
             'status' => 1,
             'user_id' => request()->user()->id,
-            'panch_in' => $nowDate->format('Y/m/d H:i')
+            'punch_in' => $nowDate->format('Y/m/d H:i')
         ]);
         return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+        }
     }
 
     public function punchOut()
@@ -82,14 +84,14 @@ class AttendanceSystemController extends Controller
         $user = Auth::user();
         $timestamp = AttendanceSystem::where('user_id', $user->id)->latest()->first();
 
-        if( !empty($timestamp->panch_out)) {
+        if( !empty($timestamp->punch_out)) {
             return redirect()->back()->with('error', '既に退勤の打刻がされているか、出勤打刻されていません');
         }else{
 
             $separator_time = 30;
             $date = Carbon::now();
             $nowDate = $date->subMinutes($date->minute % $separator_time);
-            $oldDate = $timestamp->panch_in;
+            $oldDate = $timestamp->punch_in;
             $breakTime = $timestamp->break_time;
             $oldDateTime = strtotime($oldDate);
             $dateTime = strtotime($nowDate);
@@ -100,7 +102,7 @@ class AttendanceSystemController extends Controller
             $hms = sprintf("%02d:%02d:%02d", $hours, $minutes, $seconds);
 
             $timestamp->update([
-                'panch_out' => $nowDate->format('Y/m/d H:i'),
+                'punch_out' => $nowDate->format('Y/m/d H:i'),
                 'working_time' => $hms
             ]);
 
@@ -112,17 +114,24 @@ class AttendanceSystemController extends Controller
     public function sickLeave()
     {
         $user = Auth::user();
-
-
+        $oldTimestamp = AttendanceSystem::where('user_id', $user->id)->latest()->first();
+        if ($oldTimestamp) {
+            $oldTimestampPunchIn = new Carbon($oldTimestamp->punch_in);
+            $oldTimestampDay = $oldTimestampPunchIn->startOfDay();
+        };
+        $newTimestampDay = Carbon::today();
+        if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->punch_out))){
+            return redirect()->back()->with('error', 'すでに出勤打刻がされています');
+        }else{
         $timestamp = AttendanceSystem::create([
             'status' => 2,
             'user_id' => request()->user()->id,
-            'panch_in' => '1000-01-01 00:00:00',
-            'panch_out' => '1000-01-01 00:00:00',
+            'punch_in' => '1000-01-01 00:00:00',
+            'punch_out' => '1000-01-01 00:00:00',
             'note' => ''
         ]);
 
-        return Redirect::route('attendance.index');
+        return Redirect::route('attendance.index');}
     }
 
 
@@ -166,8 +175,8 @@ class AttendanceSystemController extends Controller
                 'status' => $attendanceSystem->status,
                 'note' => $attendanceSystem->note,
                 'transportation_costs' => $attendanceSystem->transportation_costs,
-                'panch_in' => $attendanceSystem->panch_in,
-                'panch_out' => $attendanceSystem->panch_out,
+                'punch_in' => $attendanceSystem->punch_in,
+                'punch_out' => $attendanceSystem->punch_out,
                 'working_time' => $attendanceSystem->working_time,
                 'break_time' => $attendanceSystem->break_time
             ]

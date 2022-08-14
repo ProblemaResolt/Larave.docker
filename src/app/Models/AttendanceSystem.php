@@ -17,8 +17,8 @@ class AttendanceSystem extends Model
         'status',
         'note',
         'transportation_costs',
-        'panch_in',
-        'panch_out',
+        'punch_in',
+        'punch_out',
         'working_time',
         'break_time',
         'last_activity'

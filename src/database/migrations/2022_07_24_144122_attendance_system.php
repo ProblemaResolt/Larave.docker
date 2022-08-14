@@ -19,8 +19,8 @@ return new class extends Migration
             $table->integer('status')->nullable();
             $table->text('note')->nullable();
             $table->integer('transportation_costs')->nullable();
-            $table->dateTime('panch_in')->nullable();
-            $table->dateTime('panch_out')->nullable();
+            $table->dateTime('punch_in')->nullable();
+            $table->dateTime('punch_out')->nullable();
             $table->time('working_time')->nullable();
             $table->time('break_time')->nullable();
             $table->integer('last_activity')->index();
