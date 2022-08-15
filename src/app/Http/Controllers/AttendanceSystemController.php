@@ -9,27 +9,42 @@ use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 use Inertia\Inertia;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+use Inertia\Response;
 
 class AttendanceSystemController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
-        $attendance = AttendanceSystem::latest()->get();
+        $attendance = AttendanceSystem::whereMonth('created_at', date('m'))
+        ->whereYear('created_at', date('Y'))
+        ->latest()->get();
         return Inertia::render('Attendance/Index', ['attendance' => $attendance]);
+        /*return Inertia::render(
+            'Attendance/Index',
+            [
+                '$attendance' => AttendanceSystem::query()
+                    ->when(Request::input('search'), function ($query, $search) {
+                        $query->where('created_at', date('m'),'like', '%' . $search . '%')
+                            ->OrWhere('created_at', date('Y'), 'like', '%' . $search . '%');
+                    })->paginate(8)
+                    ->withQueryString(),
+            ]
+        );*/
+
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function create()
+    public function create(): Response
     {
         return Inertia::render('Attendance/Create');
     }
@@ -37,11 +52,11 @@ class AttendanceSystemController extends Controller
     /**
      * punchIn a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
 
-    public function punchIn()
+    public function punchIn(): \Illuminate\Http\RedirectResponse
     {   $user = Auth::user();
 
         $oldTimestamp = AttendanceSystem::where('user_id', $user->id)->latest()->first();
@@ -49,16 +64,7 @@ class AttendanceSystemController extends Controller
             $oldTimestampPunchIn = new Carbon($oldTimestamp->punch_in);
             $oldTimestampDay = $oldTimestampPunchIn->startOfDay();
         }else{
-        $separator_time = 30;
-        $date = Carbon::now();
-        $nowDate = $date->addMinutes($separator_time - $date->minute % $separator_time);
-
-        $timestamp = AttendanceSystem::create([
-            'status' => 1,
-            'user_id' => request()->user()->id,
-            'punch_in' => $nowDate->format('Y/m/d H:i')
-        ]);
-        return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+            return $this->extracted();
         }
 
         $newTimestampDay = Carbon::today();
@@ -66,16 +72,7 @@ class AttendanceSystemController extends Controller
         if (($oldTimestampDay == $newTimestampDay) && (empty($oldTimestamp->punch_out))){
             return redirect()->back()->with('error', 'すでに出勤打刻がされています');
         }else{
-        $separator_time = 30;
-        $date = Carbon::now();
-        $nowDate = $date->addMinutes($separator_time - $date->minute % $separator_time);
-
-        $timestamp = AttendanceSystem::create([
-            'status' => 1,
-            'user_id' => request()->user()->id,
-            'punch_in' => $nowDate->format('Y/m/d H:i')
-        ]);
-        return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+            return $this->extracted();
         }
     }
 
@@ -138,10 +135,10 @@ class AttendanceSystemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\Response
     {
         AttendanceSystem::create(
             $request->validated()
@@ -153,8 +150,8 @@ class AttendanceSystemController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AttendanceSystem  $attendanceSystem
-     * @return \Illuminate\Http\Response
+     * @param AttendanceSystem $attendanceSystem
+     * @return void
      */
     public function show(AttendanceSystem $attendanceSystem)
     {
@@ -164,10 +161,10 @@ class AttendanceSystemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AttendanceSystem  $attendanceSystem
-     * @return \Illuminate\Http\Response
+     * @param AttendanceSystem $attendanceSystem
+     * @return Response
      */
-    public function edit(AttendanceSystem $attendanceSystem)
+    public function edit(AttendanceSystem $attendanceSystem): Response
     {
         return Inertia::render('AttendanceSystem/Edit', [
             'attendanceSystem' => [
@@ -186,8 +183,8 @@ class AttendanceSystemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AttendanceSystem  $attendanceSystem
+     * @param Request $request
+     * @param AttendanceSystem $attendanceSystem
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, AttendanceSystem $attendanceSystem)
@@ -200,7 +197,7 @@ class AttendanceSystemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AttendanceSystem  $attendanceSystem
+     * @param AttendanceSystem $attendanceSystem
      * @return \Illuminate\Http\Response
      */
     public function destroy(AttendanceSystem $attendanceSystem)
@@ -208,5 +205,22 @@ class AttendanceSystemController extends Controller
         $attendanceSystem->delete();
 
         return Redirect::route('attendance.index');
+    }
+
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function extracted(): \Illuminate\Http\RedirectResponse
+    {
+        $separator_time = 30;
+        $date = Carbon::now();
+        $nowDate = $date->addMinutes($separator_time - $date->minute % $separator_time);
+
+        $timestamp = AttendanceSystem::create([
+            'status' => 1,
+            'user_id' => request()->user()->id,
+            'punch_in' => $nowDate->format('Y/m/d H:i')
+        ]);
+        return redirect()->back()->with('my_status', '出勤打刻が完了しました');
     }
 }

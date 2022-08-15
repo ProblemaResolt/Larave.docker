@@ -9,6 +9,7 @@ class AttendanceSystem extends Model
 {
     use HasFactory;
     //table 指定
+    public mixed $id;
     protected $table = 'attendance';
 
     protected $fillable = [
@@ -23,6 +24,7 @@ class AttendanceSystem extends Model
         'break_time',
         'last_activity'
     ];
+
 
     public function user() {
         return $this->belongsTo(User::class);
