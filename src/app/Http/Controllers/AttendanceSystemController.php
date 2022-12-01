@@ -19,10 +19,14 @@ class AttendanceSystemController extends Controller
      * @return Response
      */
     public function index(): Response
-    {
+    {   
+        //$attendance = AttendanceSystem::latest()->get();
+
+        /**/
         $attendance = AttendanceSystem::whereMonth('created_at', date('m'))
         ->whereYear('created_at', date('Y'))
-        ->latest()->get();
+        ->latest()
+        ->where('user_id', \Auth::user()->id)->get();
         return Inertia::render('Attendance/Index', ['attendance' => $attendance]);
         /*return Inertia::render(
             'Attendance/Index',
@@ -31,8 +35,7 @@ class AttendanceSystemController extends Controller
                     ->when(Request::input('search'), function ($query, $search) {
                         $query->where('created_at', date('m'),'like', '%' . $search . '%')
                             ->OrWhere('created_at', date('Y'), 'like', '%' . $search . '%');
-                    })->paginate(8)
-                    ->withQueryString(),
+                    })->withQueryString(),
             ]
         );*/
 
